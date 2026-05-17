@@ -1,11 +1,32 @@
+import { useContext } from "react";
+
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
+import { AuthContext } from "./context/AuthContext";
+
+
 function App() {
+
+  const { user, loading } = useContext(AuthContext);
+
+
+  if (loading) {
+
+    return (
+      <div className="h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
+
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-600">
-        ServiceFlow AI
-      </h1>
-    </div>
-  )
+    <>
+      {user ? <Dashboard /> : <Login />}
+    </>
+  );
 }
 
-export default App
+
+export default App;
