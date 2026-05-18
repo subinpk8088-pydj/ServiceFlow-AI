@@ -1,11 +1,16 @@
 import { useContext, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { AuthContext } from "../context/AuthContext";
 
 
 export default function Login() {
 
   const { loginUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,9 +36,10 @@ export default function Login() {
       formData.password
     );
 
+
     if (result.success) {
 
-      alert("Login Successful");
+      navigate("/");
 
     } else {
 
@@ -43,6 +49,7 @@ export default function Login() {
 
 
   return (
+
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
       <form
@@ -54,6 +61,7 @@ export default function Login() {
           ServiceFlow AI Login
         </h2>
 
+
         <input
           type="email"
           name="email"
@@ -61,6 +69,7 @@ export default function Login() {
           className="w-full border p-3 rounded-lg mb-4"
           onChange={handleChange}
         />
+
 
         <input
           type="password"
@@ -70,14 +79,16 @@ export default function Login() {
           onChange={handleChange}
         />
 
+
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg"
         >
           Login
         </button>
 
       </form>
+
     </div>
   );
 }

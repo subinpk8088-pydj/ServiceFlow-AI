@@ -36,3 +36,18 @@ export const createTicket = async (ticketData) => {
 
   return response.data;
 };
+
+
+export const updateTicketStatus = async (
+  ticketId,
+  updatedData
+) => {
+
+  const response = await axiosInstance.patch(
+    `tickets/${ticketId}/`,
+    updatedData,
+    getAuthHeaders()
+  );
+
+  return response.data;
+};

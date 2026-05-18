@@ -1,30 +1,59 @@
-import { useContext } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Tickets from "./pages/Tickets";
 
-import { AuthContext } from "./context/AuthContext";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 
 function App() {
 
-  const { user, loading } = useContext(AuthContext);
-
-
-  if (loading) {
-
-    return (
-      <div className="h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
-
-
   return (
-    <>
-      {user ? <Dashboard /> : <Login />}
-    </>
+
+    <BrowserRouter>
+
+      <Routes>
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/tickets"
+          element={
+            <ProtectedRoute>
+              <Tickets />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="*"
+          element={<Navigate to="/" />}
+        />
+
+      </Routes>
+
+    </BrowserRouter>
   );
 }
 
